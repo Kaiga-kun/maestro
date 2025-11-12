@@ -1,0 +1,44 @@
+# Binary output directory
+bin/
+
+# Go build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Go dependencies
+vendor/
+
+# IDE files
+.idea/
+*.swp
+*.swo
+*~
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# User config (don't commit personal settings)
+.mcl.yml
+
+# Planning documents (internal - ignore all markdown files in root)
+/*.md
+
+# Development references
+references/
+
+# Docker volumes (if running locally)
+mcl-*-npm/
+mcl-*-uv/
+mcl-*-history/
+
+# GoReleaser build artifacts
+dist/
+
+# Signing credentials (NEVER commit these!)
+.env.signing

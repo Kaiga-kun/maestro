@@ -1,0 +1,125 @@
+# Maestro Configuration File
+# Copy this to ~/.maestro/config.yml and customize as needed
+#
+# Platform-specific locations:
+# - macOS/Linux: ~/.maestro/config.yml
+# - Windows: %APPDATA%\maestro\config.yml
+
+claude:
+  # Path to your Claude configuration directory (for reference only)
+  config_path: ~/.claude
+
+  # Path to Maestro's Claude authentication directory
+  # This stores authentication credentials shared across containers
+  # Default locations:
+  #   macOS/Linux: ~/.maestro/.claude
+  #   Windows: %APPDATA%\maestro\.claude
+  # Run 'maestro auth' once to authenticate
+  auth_path: ~/.maestro/.claude
+
+  # Default mode for Claude Code (yolo = --dangerously-skip-permission-confirmations)
+  default_mode: yolo
+
+containers:
+  # Prefix for container names
+  prefix: maestro-
+
+  # Docker image to use
+  # Production: ghcr.io/uprockcom/maestro:latest (pulls from registry)
+  # Development: maestro:latest (builds from source)
+  image: ghcr.io/uprockcom/maestro:latest
+
+  # Resource limits
+  resources:
+    memory: 4g
+    cpus: "2"
+
+tmux:
+  # Default tmux session name
+  default_session: main
+  # Tmux prefix key (C-b is default, C-a for screen users)
+  prefix: C-b
+
+firewall:
+  # Allowed domains for outbound connections
+  # These domains will be resolved and added to the firewall whitelist
+  allowed_domains:
+    # Package registries
+    - registry.npmjs.org
+    - pypi.org
+    - files.pythonhosted.org
+    - proxy.golang.org
+    - sum.golang.org
+    - go.googlesource.com
+
+    # Development tools
+    - github.com
+    - api.github.com
+    - raw.githubusercontent.com
+
+    # Claude/Anthropic
+    - api.anthropic.com
+    - sentry.io
+    - statsig.anthropic.com
+    - statsig.com
+
+    # VS Code extensions (if using)
+    - marketplace.visualstudio.com
+    - vscode.blob.core.windows.net
+    - update.code.visualstudio.com
+
+    # Add your custom domains here
+    # - api.yourservice.com
+
+sync:
+  # Additional folders to copy into containers as siblings of the main project
+  # These paths will be expanded (~/ supported)
+  additional_folders:
+    # - ~/Documents/Code/mcp-servers
+    # - ~/Documents/Code/review-helpers
+    # - ~/Documents/Code/shared-libs
+
+github:
+  # Enable GitHub CLI integration
+  enabled: false
+  # Path to GitHub CLI configuration
+  # Default: ~/.maestro/gh
+  config_path: ~/.maestro/gh
+
+daemon:
+  # Daemon check interval
+  check_interval: 30m
+  # Show nag message if daemon not running
+  show_nag: true
+
+  token_refresh:
+    # Enable automatic token refresh
+    enabled: true
+    # Refresh when token has less than this time remaining
+    threshold: 6h
+
+  notifications:
+    # Enable desktop notifications
+    enabled: true
+    # Notify when container needs attention for longer than this
+    attention_threshold: 5m
+    # Events to notify on
+    notify_on:
+      - attention_needed
+      - token_expiring
+    # Quiet hours (optional, 24-hour format)
+    quiet_hours:
+      start: ""  # e.g., "22:00"
+      end: ""    # e.g., "08:00"
+
+# Custom app binaries to copy into containers
+# Format: name: source_path
+apps: {}
+  # Example:
+  # insight: ~/Documents/Code/insight-cli/bin/insight
+
+wizard:
+  # Always run onboarding wizard on startup
+  always_run: false
+  # Resume wizard after running 'maestro auth'
+  resume_after_auth: false

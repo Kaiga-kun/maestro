@@ -1,0 +1,121 @@
+# GoReleaser configuration for Maestro
+# See: https://goreleaser.com
+
+version: 2
+
+before:
+  hooks:
+    # Clean and prepare
+    - go mod tidy
+    - go test ./...
+
+builds:
+  - id: maestro
+    main: .
+    binary: maestro
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - -s -w
+      - -X github.com/uprockcom/maestro/pkg/version.Version={{.Version}}
+      - -X github.com/uprockcom/maestro/pkg/version.Commit={{.Commit}}
+      - -X github.com/uprockcom/maestro/pkg/version.Date={{.Date}}
+      - -X github.com/uprockcom/maestro/pkg/version.BuiltBy=goreleaser
+    hooks:
+      post:
+        # Sign macOS binaries after build (script handles OS detection)
+        - scripts/sign-macos.sh {{ .Path }}
+        # Sign Windows binaries after build (script handles OS detection)
+        - scripts/sign-windows.sh {{ .Path }}
+
+archives:
+  - id: maestro
+    formats:
+      - tar.gz
+      - zip
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+      - goos: linux
+        formats: [tar.gz]
+      - goos: darwin
+        formats: [tar.gz]
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+    files:
+      - LICENSE
+      - README.md
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'
+      - '^chore:'
+      - '^ci:'
+  groups:
+    - title: 'Features'
+      regexp: '^feat:'
+      order: 0
+    - title: 'Bug Fixes'
+      regexp: '^fix:'
+      order: 1
+    - title: 'Security'
+      regexp: '^SECURITY:'
+      order: 2
+    - title: 'Other'
+      order: 999
+
+release:
+  github:
+    owner: uprockcom
+    name: maestro
+  draft: false
+  prerelease: auto
+  mode: replace
+  header: |
+    ## Maestro {{ .Tag }}
+
+    Multi-Container Claude - Manage isolated Claude Code development environments.
+
+    ### Installation
+
+    ```bash
+    curl -fsSL https://raw.githubusercontent.com/uprockcom/maestro/main/install.sh | bash
+    ```
+
+    Or download the binary for your platform below and install manually.
+
+  footer: |
+    **Full Changelog**: https://github.com/uprockcom/maestro/compare/{{ .PreviousTag }}...{{ .Tag }}
+
+    ### Docker Image
+
+    The container image is available at:
+    ```
+    ghcr.io/uprockcom/maestro:{{ .Tag }}
+    ghcr.io/uprockcom/maestro:latest
+    ```
+
+# Don't create a source archive
+source:
+  enabled: false
